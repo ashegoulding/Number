@@ -29,6 +29,7 @@ public:
 
 	static T fromString(std::string &x) throw();
 	static std::string toString(T x) throw();
+	static void swap(T &a, T &b) throw();
 
 	Number() throw();
 	Number(const T x) throw();
@@ -43,6 +44,9 @@ public:
 	virtual inline T &operator *() throw();
 
 	virtual std::string toString() throw();
+
+	virtual void swap(T &with) throw();
+	virtual void swap(thisClass &with) throw();
 };
 
 template<class T>
@@ -132,11 +136,35 @@ std::string Number<T>::toString(T x) throw ()
 }
 
 template<class T>
+inline void Number<T>::swap(T& a, T& b) throw ()
+{
+	T tmp = b;
+	b = a;
+	a = tmp;
+}
+
+template<class T>
+inline void Number<T>::swap(T& with) throw ()
+{
+	T tmp = with;
+	with = this->number;
+	this->number = tmp;
+}
+
+template<class T>
+inline void Number<T>::swap(thisClass& with) throw ()
+{
+	T tmp = with.number;
+	with = this->number;
+	this->number = tmp;
+}
+
+
+template<class T>
 std::string Number<T>::toString() throw ()
 {
 	return thisClass::toString(this->number);
 }
 
 } /* namespace 'ashe' */
-
 #endif /* ASHE_NUMBER_H_ */
