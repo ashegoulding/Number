@@ -122,6 +122,7 @@ T Number<T>::fromString(std::string& x) throw ()
 {
 	std::stringstream sb;
 	T y;
+	memset(&y, 0, sizeof(T));
 	sb << x;
 	sb >> y;
 	return y;
